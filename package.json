@@ -1,12 +1,12 @@
 {
-  "name": "prd-writer-mcp",
+  "name": "alps-writer-mcp",
   "version": "0.1.0",
   "description": "MCP server for interactive PRD (Product Requirements Document) writing with AI",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
-    "prd-writer-mcp": "dist/index.js"
+    "alps-writer-mcp": "dist/index.js"
   },
   "files": [
     "dist"
@@ -34,7 +34,7 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/haandol/prd-writer"
+    "url": "https://github.com/haandol/alps-writer-mcp"
   },
   "author": "haandol",
   "engines": {

@@ -9,7 +9,7 @@ import { DocumentService } from "./tools/documents/service.js";
 import { DocumentController } from "./tools/documents/controller.js";
 
 const server = new McpServer(
-  { name: "prd-writer", version: "0.1.0" },
+  { name: "alps-writer", version: "0.1.0" },
   {
     instructions: `You are an intelligent product owner helping users create PRD documents.
 

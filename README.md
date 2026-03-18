@@ -1,6 +1,6 @@
-# PRD Writer MCP Server
+# ALPS Writer MCP Server
 
-[![npm version](https://img.shields.io/npm/v/prd-writer-mcp.svg)](https://www.npmjs.com/package/prd-writer-mcp)
+[![npm version](https://img.shields.io/npm/v/alps-writer-mcp.svg)](https://www.npmjs.com/package/alps-writer-mcp)
 
 A [Model Context Protocol (MCP)](https://modelcontextprotocol.io) server that helps you write PRD (Product Requirements Document) interactively with AI. Guides you through 9 structured sections with templates, conversation guides, and document management.
 
@@ -21,7 +21,7 @@ No installation required — just add the MCP config to your client:
   "mcpServers": {
     "prd-writer": {
       "command": "npx",
-      "args": ["-y", "prd-writer-mcp"]
+      "args": ["-y", "alps-writer-mcp"]
     }
   }
 }
@@ -32,7 +32,7 @@ No installation required — just add the MCP config to your client:
 | Client | Config location |
 | --- | --- |
 | **Claude Desktop** | Settings > Developer > Edit Config (`claude_desktop_config.json`) |
-| **Claude Code** | `claude mcp add prd-writer -- npx -y prd-writer-mcp` |
+| **Claude Code** | `claude mcp add prd-writer -- npx -y alps-writer-mcp` |
 | **Cursor** | Settings > Features > MCP Servers > + Add new global MCP server |
 | **Kiro** | `Cmd+Shift+P` > "Kiro: Open user MCP config (JSON)" (`~/.kiro/settings/mcp.json`) |
 
@@ -49,7 +49,7 @@ Config example with `PRD_OUTPUT_DIR`:
   "mcpServers": {
     "prd-writer": {
       "command": "npx",
-      "args": ["-y", "prd-writer-mcp"],
+      "args": ["-y", "alps-writer-mcp"],
       "env": {
         "PRD_OUTPUT_DIR": "~/Documents/prd"
       }
@@ -113,8 +113,8 @@ The server guides AI through a structured workflow:
 ### Running from Source
 
 ```bash
-git clone https://github.com/haandol/prd-writer.git
-cd prd-writer
+git clone https://github.com/haandol/alps-writer-mcp.git
+cd alps-writer-mcp
 pnpm install
 pnpm build
 ```
