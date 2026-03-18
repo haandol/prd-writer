@@ -11,21 +11,21 @@ import { DocumentController } from "./tools/documents/controller.js";
 const server = new McpServer(
   { name: "alps-writer", version: "0.1.0" },
   {
-    instructions: `You are an intelligent product owner helping users create PRD documents.
+    instructions: `You are an intelligent product owner helping users create ALPS (Agentic Lean Product Spec) documents.
 
 <WORKFLOW>
-1. init_prd_document() or load_prd_document()
-2. get_prd_overview() - MUST call first to get conversation guide
+1. init_alps_document() or load_alps_document()
+2. get_alps_overview() - MUST call first to get conversation guide
 3. For each section 1-9:
-   a. get_prd_section_guide(N)
-   b. get_prd_section(N)
+   a. get_alps_section_guide(N)
+   b. get_alps_section(N)
    c. Follow conversation guide from overview
-   d. save_prd_section(N, content) after user confirmation
-5. export_prd_markdown() for final output
+   d. save_alps_section(N, content) after user confirmation
+5. export_alps_markdown() for final output
 </WORKFLOW>
 
 <RULES>
-- MUST call get_prd_overview() first to get detailed conversation guide
+- MUST call get_alps_overview() first to get detailed conversation guide
 - NEVER generate multiple sections at once
 - NEVER proceed without user confirmation
 </RULES>`,
@@ -37,80 +37,80 @@ const dc = new DocumentController(new DocumentService());
 
 // Template tools
 server.tool(
-  "get_prd_overview",
-  "Get the PRD template overview with all section descriptions. IMPORTANT: After calling this, you MUST call get_prd_section_guide(1) to start the interactive Q&A process.",
+  "get_alps_overview",
+  "Get the ALPS template overview with all section descriptions. IMPORTANT: After calling this, you MUST call get_alps_section_guide(1) to start the interactive Q&A process.",
   {},
   () => ({
-    content: [{ type: "text", text: tc.getPrdOverview() }],
+    content: [{ type: "text", text: tc.getAlpsOverview() }],
   }),
 );
 
-server.tool("list_prd_sections", "List all available PRD template sections.", {}, () => ({
-  content: [{ type: "text", text: JSON.stringify(tc.listPrdSections()) }],
+server.tool("list_alps_sections", "List all available ALPS template sections.", {}, () => ({
+  content: [{ type: "text", text: JSON.stringify(tc.listAlpsSections()) }],
 }));
 
 server.tool(
-  "get_prd_section",
-  "Get a specific PRD template section by number.",
+  "get_alps_section",
+  "Get a specific ALPS template section by number.",
   {
     section: z.number().min(1).max(9).describe("Section number (1-9)"),
     include_examples: z.boolean().default(false).describe("Include example content"),
   },
   ({ section, include_examples }) => ({
-    content: [{ type: "text", text: tc.getPrdSection(section, include_examples) }],
+    content: [{ type: "text", text: tc.getAlpsSection(section, include_examples) }],
   }),
 );
 
 server.tool(
-  "get_prd_full_template",
-  "Get the complete PRD template with all sections combined.",
+  "get_alps_full_template",
+  "Get the complete ALPS template with all sections combined.",
   { include_examples: z.boolean().default(false).describe("Include example content") },
   ({ include_examples }) => ({
-    content: [{ type: "text", text: tc.getPrdFullTemplate(include_examples) }],
+    content: [{ type: "text", text: tc.getAlpsFullTemplate(include_examples) }],
   }),
 );
 
 server.tool(
-  "get_prd_section_guide",
-  "Get conversation guide for writing a specific PRD section. Use this before starting each section.",
+  "get_alps_section_guide",
+  "Get conversation guide for writing a specific ALPS section. Use this before starting each section.",
   { section: z.number().min(1).max(9).describe("Section number (1-9)") },
   ({ section }) => ({
-    content: [{ type: "text", text: tc.getPrdSectionGuide(section) }],
+    content: [{ type: "text", text: tc.getAlpsSectionGuide(section) }],
   }),
 );
 
 // Document tools
 server.tool(
-  "init_prd_document",
-  "Initialize a new PRD document file.",
+  "init_alps_document",
+  "Initialize a new ALPS document file.",
   {
     project_name: z.string().describe("Name of the project"),
     output_path: z
       .string()
-      .describe("File path for the document (e.g., ~/Documents/my-project.prd.xml)"),
+      .describe("File path for the document (e.g., ~/Documents/my-project.alps.xml)"),
   },
   ({ project_name, output_path }) => ({
-    content: [{ type: "text", text: dc.initPrdDocument(project_name, output_path) }],
+    content: [{ type: "text", text: dc.initAlpsDocument(project_name, output_path) }],
   }),
 );
 
 server.tool(
-  "load_prd_document",
-  `Load an existing PRD document to resume editing.
+  "load_alps_document",
+  `Load an existing ALPS document to resume editing.
 ⚠️ CRITICAL: After loading, you MUST follow the conversation guide:
-1. Call get_prd_section_guide(N) for the section you want to work on
+1. Call get_alps_section_guide(N) for the section you want to work on
 2. Ask 1-2 focused questions at a time - DO NOT auto-generate content
 3. Wait for user response before proceeding
 4. Get explicit confirmation before saving each section`,
-  { doc_path: z.string().describe("Path to the .prd.xml file") },
+  { doc_path: z.string().describe("Path to the .alps.xml file") },
   ({ doc_path }) => ({
-    content: [{ type: "text", text: dc.loadPrdDocument(doc_path) }],
+    content: [{ type: "text", text: dc.loadAlpsDocument(doc_path) }],
   }),
 );
 
 server.tool(
-  "save_prd_section",
-  `Save content to a subsection in the PRD document.
+  "save_alps_section",
+  `Save content to a subsection in the ALPS document.
 ⚠️ BEFORE CALLING THIS TOOL:
 1. 작성 완료된 내용을 사용자에게 먼저 출력하세요
 2. "수정할 내용이 있으신가요?" 라고 확인을 요청하세요
@@ -122,12 +122,12 @@ server.tool(
     content: z.string().describe("Content for the subsection (markdown)"),
   },
   ({ section, subsection_id, title, content }) => ({
-    content: [{ type: "text", text: dc.savePrdSection(section, subsection_id, title, content) }],
+    content: [{ type: "text", text: dc.saveAlpsSection(section, subsection_id, title, content) }],
   }),
 );
 
 server.tool(
-  "read_prd_section",
+  "read_alps_section",
   "Read the current content of a section or subsection.",
   {
     section: z.number().min(1).max(9).describe("Section number (1-9)"),
@@ -137,22 +137,22 @@ server.tool(
       .describe('Subsection ID (e.g., "1" for X.1). If omitted, returns entire section.'),
   },
   ({ section, subsection_id }) => ({
-    content: [{ type: "text", text: dc.readPrdSection(section, subsection_id) }],
+    content: [{ type: "text", text: dc.readAlpsSection(section, subsection_id) }],
   }),
 );
 
 server.tool(
-  "get_prd_document_status",
+  "get_alps_document_status",
   "Get the status of all sections in the current document.",
   {},
   () => ({
-    content: [{ type: "text", text: dc.getPrdDocumentStatus() }],
+    content: [{ type: "text", text: dc.getAlpsDocumentStatus() }],
   }),
 );
 
 server.tool(
-  "export_prd_markdown",
-  "Export the PRD document as clean markdown.",
+  "export_alps_markdown",
+  "Export the ALPS document as clean markdown.",
   {
     output_path: z
       .string()
@@ -160,7 +160,7 @@ server.tool(
       .describe("Optional output file path. If not provided, returns the content."),
   },
   ({ output_path }) => ({
-    content: [{ type: "text", text: dc.exportPrdMarkdown(output_path) }],
+    content: [{ type: "text", text: dc.exportAlpsMarkdown(output_path) }],
   }),
 );
 

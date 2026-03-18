@@ -99,7 +99,7 @@ export class TemplateService {
       const refNames = refs.map((r) => `Section ${r} (${SECTION_TITLES[r]})`);
       return `⚠️ REQUIRED: This section depends on ${refNames.join(", ")}.
 Before proceeding, you MUST:
-1. Call read_prd_section(${refs[0]}) to review referenced content
+1. Call read_alps_section(${refs[0]}) to review referenced content
 2. Summarize key points from referenced section(s) in your response
 3. If referenced sections are incomplete, warn the user first
 

@@ -47,21 +47,21 @@ export class DocumentService {
   }
 
   private buildDocument(projectName: string, sections: Map<number, string>): string {
-    const lines = [`<prd-document project="${projectName}">`];
+    const lines = [`<alps-document project="${projectName}">`];
     for (let i = 1; i <= 9; i++) {
       lines.push(this.buildSection(i, sections.get(i) || "<!-- Not started -->"));
     }
-    lines.push("</prd-document>");
+    lines.push("</alps-document>");
     return lines.join("\n\n");
   }
 
   private extractProjectName(content: string): string {
-    let m = content.match(/<prd-document project="([^"]+)">/);
+    let m = content.match(/<alps-document project="([^"]+)">/);
     if (m) return m[1];
-    // legacy alps format compat
-    m = content.match(/<alps-document project="([^"]+)">/);
+    // legacy prd format compat
+    m = content.match(/<prd-document project="([^"]+)">/);
     if (m) return m[1];
-    m = content.match(/^# (.+?) (?:PRD|ALPS)/m);
+    m = content.match(/^# (.+?) (?:ALPS|PRD)/m);
     return m ? m[1] : "Untitled";
   }
 
@@ -77,17 +77,17 @@ export class DocumentService {
 
   initDocument(projectName: string, outputPath: string): string {
     let filepath = this.expandPath(outputPath);
-    if (!path.extname(filepath)) filepath += ".prd.xml";
+    if (!path.extname(filepath)) filepath += ".alps.xml";
 
     if (fs.existsSync(filepath)) {
       this.workingDoc = filepath;
-      return `Document already exists at ${filepath}. Use load_prd_document() to resume.`;
+      return `Document already exists at ${filepath}. Use load_alps_document() to resume.`;
     }
 
     fs.mkdirSync(path.dirname(filepath), { recursive: true });
     fs.writeFileSync(filepath, this.buildDocument(projectName, new Map()), "utf-8");
     this.workingDoc = filepath;
-    return `Created PRD document at ${filepath}`;
+    return `Created ALPS document at ${filepath}`;
   }
 
   loadDocument(docPath: string): string {
@@ -98,16 +98,16 @@ export class DocumentService {
 
 ---
 ⚠️ CONVERSATION MODE REQUIRED:
-1. Call get_prd_section_guide(N) before working on any section
+1. Call get_alps_section_guide(N) before working on any section
 2. Ask 1-2 focused questions at a time - DO NOT auto-generate content
 3. Wait for user response before proceeding
-4. Get explicit "yes" confirmation before calling save_prd_section()
+4. Get explicit "yes" confirmation before calling save_alps_section()
 NEVER auto-fill sections without user Q&A, even if content already exists.`;
   }
 
   saveSection(section: number, subsectionId: string, title: string, content: string): string {
     if (!this.workingDoc) {
-      return "No document loaded. Call init_prd_document() or load_prd_document() first.";
+      return "No document loaded. Call init_alps_document() or load_alps_document() first.";
     }
     if (!(section in SECTION_TITLES)) {
       return `Invalid section number: ${section}. Must be 1-9.`;
@@ -138,7 +138,7 @@ ${content}
 
   readSection(section: number, subsectionId?: string): string {
     if (!this.workingDoc) {
-      return "No document loaded. Call init_prd_document() or load_prd_document() first.";
+      return "No document loaded. Call init_alps_document() or load_alps_document() first.";
     }
     if (!(section in SECTION_TITLES)) return `Section ${section} not found.`;
 
@@ -160,14 +160,14 @@ ${content}
 
   getStatus(): string {
     if (!this.workingDoc) {
-      return "No document loaded. Call init_prd_document() or load_prd_document() first.";
+      return "No document loaded. Call init_alps_document() or load_alps_document() first.";
     }
 
     const docContent = fs.readFileSync(this.workingDoc, "utf-8");
     const projectName = this.extractProjectName(docContent);
     const sections = this.parseSections(docContent);
 
-    const lines = [`PRD Document: ${projectName}`, `Location: ${this.workingDoc}`, ""];
+    const lines = [`ALPS Document: ${projectName}`, `Location: ${this.workingDoc}`, ""];
     for (const [num, title] of Object.entries(SECTION_TITLES)) {
       const content = sections.get(parseInt(num, 10)) || "";
       let status: string;
@@ -194,14 +194,14 @@ ${content}
 
   exportMarkdown(outputPath?: string): string {
     if (!this.workingDoc) {
-      return "No document loaded. Call init_prd_document() or load_prd_document() first.";
+      return "No document loaded. Call init_alps_document() or load_alps_document() first.";
     }
 
     const docContent = fs.readFileSync(this.workingDoc, "utf-8");
     const projectName = this.extractProjectName(docContent);
     const sections = this.parseSections(docContent);
 
-    const lines = [`# ${projectName} PRD\n`];
+    const lines = [`# ${projectName} ALPS\n`];
     for (let i = 1; i <= 9; i++) {
       const content = sections.get(i) || "";
       const md =

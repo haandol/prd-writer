@@ -2,11 +2,11 @@
 
 [![npm version](https://img.shields.io/npm/v/alps-writer-mcp.svg)](https://www.npmjs.com/package/alps-writer-mcp)
 
-A [Model Context Protocol (MCP)](https://modelcontextprotocol.io) server that helps you write PRD (Product Requirements Document) interactively with AI. Guides you through 9 structured sections with templates, conversation guides, and document management.
+A [Model Context Protocol (MCP)](https://modelcontextprotocol.io) server that helps you write ALPS (Agentic Lean Product Spec) interactively with AI. Guides you through 9 structured sections with templates, conversation guides, and document management.
 
 ## Features
 
-- 9-section PRD template with structured XML templates and conversation guides
+- 9-section ALPS template with structured XML templates and conversation guides
 - Interactive Q&A workflow — AI asks focused questions, never auto-generates
 - Document management — create, save, load, and export as clean Markdown
 - Section dependency tracking — ensures referenced sections are reviewed first
@@ -19,7 +19,7 @@ No installation required — just add the MCP config to your client:
 ```json
 {
   "mcpServers": {
-    "prd-writer": {
+    "alps-writer": {
       "command": "npx",
       "args": ["-y", "alps-writer-mcp"]
     }
@@ -32,7 +32,7 @@ No installation required — just add the MCP config to your client:
 | Client | Config location |
 | --- | --- |
 | **Claude Desktop** | Settings > Developer > Edit Config (`claude_desktop_config.json`) |
-| **Claude Code** | `claude mcp add prd-writer -- npx -y alps-writer-mcp` |
+| **Claude Code** | `claude mcp add alps-writer -- npx -y alps-writer-mcp` |
 | **Cursor** | Settings > Features > MCP Servers > + Add new global MCP server |
 | **Kiro** | `Cmd+Shift+P` > "Kiro: Open user MCP config (JSON)" (`~/.kiro/settings/mcp.json`) |
 
@@ -40,14 +40,14 @@ No installation required — just add the MCP config to your client:
 
 | Variable | Description | Default |
 | --- | --- | --- |
-| `PRD_OUTPUT_DIR` | Directory for document files (`.prd.xml`, exported markdown) | Current working directory |
+| `PRD_OUTPUT_DIR` | Directory for document files (`.alps.xml`, exported markdown) | Current working directory |
 
 Config example with `PRD_OUTPUT_DIR`:
 
 ```json
 {
   "mcpServers": {
-    "prd-writer": {
+    "alps-writer": {
       "command": "npx",
       "args": ["-y", "alps-writer-mcp"],
       "env": {
@@ -64,37 +64,37 @@ Config example with `PRD_OUTPUT_DIR`:
 
 | Tool | Description |
 | --- | --- |
-| `get_prd_overview` | Get the PRD template overview with conversation guide |
-| `list_prd_sections` | List all available template sections |
-| `get_prd_section` | Get a specific template section by number (1-9) |
-| `get_prd_full_template` | Get the complete template with all sections |
-| `get_prd_section_guide` | Get conversation guide for writing a section |
+| `get_alps_overview` | Get the ALPS template overview with conversation guide |
+| `list_alps_sections` | List all available template sections |
+| `get_alps_section` | Get a specific template section by number (1-9) |
+| `get_alps_full_template` | Get the complete template with all sections |
+| `get_alps_section_guide` | Get conversation guide for writing a section |
 
 ### Document Management Tools
 
 | Tool | Description |
 | --- | --- |
-| `init_prd_document` | Create a new PRD document (`.prd.xml`) |
-| `load_prd_document` | Load an existing document to resume editing |
-| `save_prd_section` | Save content to a specific subsection |
-| `read_prd_section` | Read current content of a section |
-| `get_prd_document_status` | Get status of all sections |
-| `export_prd_markdown` | Export as clean Markdown |
+| `init_alps_document` | Create a new ALPS document (`.alps.xml`) |
+| `load_alps_document` | Load an existing document to resume editing |
+| `save_alps_section` | Save content to a specific subsection |
+| `read_alps_section` | Read current content of a section |
+| `get_alps_document_status` | Get status of all sections |
+| `export_alps_markdown` | Export as clean Markdown |
 
 ## Workflow
 
 The server guides AI through a structured workflow:
 
-1. **Initialize** — `init_prd_document()` or `load_prd_document()`
-2. **Overview** — `get_prd_overview()` to get the conversation guide
+1. **Initialize** — `init_alps_document()` or `load_alps_document()`
+2. **Overview** — `get_alps_overview()` to get the conversation guide
 3. **For each section (1-9):**
-   - `get_prd_section_guide(N)` — get questions and criteria
-   - `get_prd_section(N)` — get the template structure
+   - `get_alps_section_guide(N)` — get questions and criteria
+   - `get_alps_section(N)` — get the template structure
    - Ask focused questions (1-2 at a time)
-   - `save_prd_section(N, ...)` — save after user confirmation
-4. **Export** — `export_prd_markdown()` for the final document
+   - `save_alps_section(N, ...)` — save after user confirmation
+4. **Export** — `export_alps_markdown()` for the final document
 
-## PRD Sections
+## ALPS Sections
 
 | # | Section | Dependencies |
 | --- | --- | --- |
@@ -124,9 +124,9 @@ Then configure your MCP client:
 ```json
 {
   "mcpServers": {
-    "prd-writer": {
+    "alps-writer": {
       "command": "node",
-      "args": ["/path/to/prd-writer/dist/index.js"]
+      "args": ["/path/to/alps-writer-mcp/dist/index.js"]
     }
   }
 }

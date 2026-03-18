@@ -3,7 +3,7 @@ import { TemplateService } from "./service.js";
 export class TemplateController {
   constructor(private service: TemplateService) {}
 
-  getPrdOverview(): string {
+  getAlpsOverview(): string {
     return (
       this.service.getOverview() +
       `
@@ -11,24 +11,24 @@ export class TemplateController {
 ---
 ## Next Step
 
-**REQUIRED**: Call \`get_prd_section_guide(1)\` to begin interactive writing.
+**REQUIRED**: Call \`get_alps_section_guide(1)\` to begin interactive writing.
 Do NOT write any section without going through the guide's Q&A process first.`
     );
   }
 
-  listPrdSections(): { section: number; filename: string }[] {
+  listAlpsSections(): { section: number; filename: string }[] {
     return this.service.listSections();
   }
 
-  getPrdSection(section: number, includeExamples = false): string {
+  getAlpsSection(section: number, includeExamples = false): string {
     return this.service.getSection(section, includeExamples);
   }
 
-  getPrdFullTemplate(includeExamples = false): string {
+  getAlpsFullTemplate(includeExamples = false): string {
     return this.service.getFullTemplate(includeExamples);
   }
 
-  getPrdSectionGuide(section: number): string {
+  getAlpsSectionGuide(section: number): string {
     return this.service.getSectionGuide(section);
   }
 }

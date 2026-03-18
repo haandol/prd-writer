@@ -1,6 +1,6 @@
 # AGENTS.md
 
-PRD Writer — MCP 서버 기반의 인터랙티브 PRD (Product Requirements Document) 작성 도구. `alps-writer-mcp`로 npm 배포.
+ALPS Writer — MCP 서버 기반의 인터랙티브 ALPS (Agentic Lean Product Spec) 작성 도구. `alps-writer-mcp`로 npm 배포.
 
 ## Commands
 
@@ -21,7 +21,7 @@ pnpm start            # Run built version (node dist/index.js)
 
 **Controller/Service 패턴** — 도메인별 controller(MCP 인터페이스)와 service(비즈니스 로직) 분리:
 
-- `src/tools/templates/` — PRD 템플릿·대화 가이드 읽기 전용
+- `src/tools/templates/` — ALPS 템플릿·대화 가이드 읽기 전용
 - `src/tools/documents/` — 문서 CRUD (init, load, save, read, export) 상태 관리
 
 **Constants** (`src/constants.ts`) — 섹션 메타데이터 중앙 관리: 타이틀(1-9), 의존성 그래프(`SECTION_REFERENCES`), `__dirname` 기반 파일시스템 경로.
@@ -29,10 +29,10 @@ pnpm start            # Run built version (node dist/index.js)
 **Static assets** (런타임 파일시스템 읽기):
 
 - `src/templates/chapters/01-09.xml` — XML 섹션 템플릿
-- `src/templates/overview.md` — PRD 개요
+- `src/templates/overview.md` — ALPS 개요
 - `src/guides/01-09.md` — 섹션별 대화 가이드
 
-**Document format** — `.prd.xml` 파일에 `<prd-document>`, `<section>`, `<subsection>` 태그로 저장. regex로 파싱 (XML 파서 라이브러리 미사용). 출력 디렉토리는 `PRD_OUTPUT_DIR` 환경변수로 제어.
+**Document format** — `.alps.xml` 파일에 `<alps-document>`, `<section>`, `<subsection>` 태그로 저장. regex로 파싱 (XML 파서 라이브러리 미사용). 출력 디렉토리는 `PRD_OUTPUT_DIR` 환경변수로 제어.
 
 **DocumentService state** — `workingDoc`이 현재 문서 경로를 메모리에 보유. `initDocument()` 또는 `loadDocument()` 호출 후에만 read/write 가능.
 
