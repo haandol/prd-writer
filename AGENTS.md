@@ -1,6 +1,6 @@
 # AGENTS.md
 
-ALPS Writer — Interactive ALPS (PRD) writing tool based on MCP server. Published as `alps-writer-mcp` on npm.
+ALPS Writer — Interactive ALPS (PRD) writing tool based on MCP server. Published as `alps-writer` on npm.
 
 **Tech Stack**: TypeScript 5.9+, Node.js >= 20, pnpm, MCP SDK (`@modelcontextprotocol/sdk`), Zod
 

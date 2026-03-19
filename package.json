@@ -1,12 +1,12 @@
 {
-  "name": "alps-writer-mcp",
+  "name": "alps-writer",
   "version": "0.1.1",
   "description": "MCP server for interactive ALPS (PRD) writing with AI",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
-    "alps-writer-mcp": "dist/index.js"
+    "alps-writer": "dist/index.js"
   },
   "files": [
     "dist"

@@ -1,6 +1,6 @@
 # ALPS Writer
 
-[![npm version](https://img.shields.io/npm/v/alps-writer-mcp.svg)](https://www.npmjs.com/package/alps-writer-mcp)
+[![npm version](https://img.shields.io/npm/v/alps-writer.svg)](https://www.npmjs.com/package/alps-writer)
 
 A [Model Context Protocol (MCP)](https://modelcontextprotocol.io) server that helps you write ALPS (PRD) interactively with AI. Guides you through 9 structured sections with templates, conversation guides, and document management.
 
@@ -19,9 +19,9 @@ No installation required — just add the MCP config to your client:
 ```json
 {
   "mcpServers": {
-    "alps-writer-mcp": {
+    "alps-writer": {
       "command": "npx",
-      "args": ["-y", "alps-writer-mcp"]
+      "args": ["-y", "alps-writer"]
     }
   }
 }
@@ -32,7 +32,7 @@ No installation required — just add the MCP config to your client:
 | Client             | Config location                                                                   |
 | ------------------ | --------------------------------------------------------------------------------- |
 | **Claude Desktop** | Settings > Developer > Edit Config (`claude_desktop_config.json`)                 |
-| **Claude Code**    | `claude mcp add alps-writer -- npx -y alps-writer-mcp`                            |
+| **Claude Code**    | `claude mcp add alps-writer -- npx -y alps-writer`                                |
 | **Cursor**         | Settings > Features > MCP Servers > + Add new global MCP server                   |
 | **Kiro**           | `Cmd+Shift+P` > "Kiro: Open user MCP config (JSON)" (`~/.kiro/settings/mcp.json`) |
 
@@ -47,9 +47,9 @@ Config example with `ALPS_OUTPUT_DIR`:
 ```json
 {
   "mcpServers": {
-    "alps-writer-mcp": {
+    "alps-writer": {
       "command": "npx",
-      "args": ["-y", "alps-writer-mcp"],
+      "args": ["-y", "alps-writer"],
       "env": {
         "ALPS_OUTPUT_DIR": "~/Documents/alps"
       }
@@ -124,7 +124,7 @@ Then configure your MCP client:
 ```json
 {
   "mcpServers": {
-    "alps-writer-mcp": {
+    "alps-writer": {
       "command": "node",
       "args": ["/path/to/alps-writer-mcp/dist/index.js"]
     }
