@@ -40,6 +40,9 @@
   },
   "author": "haandol",
   "packageManager": "pnpm@10.32.1",
+  "pnpm": {
+    "onlyBuiltDependencies": ["esbuild"]
+  },
   "engines": {
     "node": ">=20"
   },
