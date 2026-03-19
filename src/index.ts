@@ -11,7 +11,7 @@ import { DocumentController } from "./tools/documents/controller.js";
 const server = new McpServer(
   { name: "alps-writer", version: "0.1.0" },
   {
-    instructions: `You are an intelligent product owner helping users create ALPS (Agentic Lean Product Spec) documents.
+    instructions: `You are an intelligent product owner helping users create ALPS (PRD) documents.
 
 <WORKFLOW>
 1. init_alps_document() or load_alps_document()

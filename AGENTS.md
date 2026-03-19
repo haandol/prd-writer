@@ -1,6 +1,6 @@
 # AGENTS.md
 
-ALPS Writer — MCP 서버 기반의 인터랙티브 ALPS (Agentic Lean Product Spec) 작성 도구. `alps-writer-mcp`로 npm 배포.
+ALPS Writer — MCP 서버 기반의 인터랙티브 ALPS (PRD) 작성 도구. `alps-writer-mcp`로 npm 배포.
 
 ## Commands
 
@@ -32,7 +32,7 @@ pnpm start            # Run built version (node dist/index.js)
 - `src/templates/overview.md` — ALPS 개요
 - `src/guides/01-09.md` — 섹션별 대화 가이드
 
-**Document format** — `.alps.xml` 파일에 `<alps-document>`, `<section>`, `<subsection>` 태그로 저장. regex로 파싱 (XML 파서 라이브러리 미사용). 출력 디렉토리는 `PRD_OUTPUT_DIR` 환경변수로 제어.
+**Document format** — `.alps.xml` 파일에 `<alps-document>`, `<section>`, `<subsection>` 태그로 저장. regex로 파싱 (XML 파서 라이브러리 미사용). 출력 디렉토리는 `ALPS_OUTPUT_DIR` 환경변수로 제어 (`PRD_OUTPUT_DIR`도 하위호환 지원).
 
 **DocumentService state** — `workingDoc`이 현재 문서 경로를 메모리에 보유. `initDocument()` 또는 `loadDocument()` 호출 후에만 read/write 가능.
 

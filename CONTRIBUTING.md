@@ -1,6 +1,6 @@
 # Contributing Guide
 
-This document defines the rules to follow when contributing to the PRD Writer MCP Server project.
+This document defines the rules to follow when contributing to the ALPS (PRD) Writer MCP Server project.
 
 ## Table of Contents
 
@@ -190,7 +190,7 @@ src/
 │   ├── templates/        # Template tools (controller + service)
 │   └── documents/        # Document tools (controller + service)
 ├── guides/               # Section conversation guides (01-09.md)
-└── templates/            # PRD templates (overview.md + chapters/*.xml)
+└── templates/            # ALPS (PRD) templates (overview.md + chapters/*.xml)
 ```
 
 ### Key Patterns

@@ -58,7 +58,7 @@ export class DocumentService {
   private extractProjectName(content: string): string {
     let m = content.match(/<alps-document project="([^"]+)">/);
     if (m) return m[1];
-    // legacy prd format compat
+    // legacy PRD format compat
     m = content.match(/<prd-document project="([^"]+)">/);
     if (m) return m[1];
     m = content.match(/^# (.+?) (?:ALPS|PRD)/m);
@@ -66,7 +66,7 @@ export class DocumentService {
   }
 
   private get outputDir(): string {
-    return process.env.PRD_OUTPUT_DIR || process.cwd();
+    return process.env.ALPS_OUTPUT_DIR || process.env.PRD_OUTPUT_DIR || process.cwd();
   }
 
   private expandPath(p: string): string {

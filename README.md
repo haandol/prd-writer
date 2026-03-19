@@ -1,12 +1,12 @@
-# ALPS Writer MCP Server
+# ALPS Writer
 
 [![npm version](https://img.shields.io/npm/v/alps-writer-mcp.svg)](https://www.npmjs.com/package/alps-writer-mcp)
 
-A [Model Context Protocol (MCP)](https://modelcontextprotocol.io) server that helps you write ALPS (Agentic Lean Product Spec) interactively with AI. Guides you through 9 structured sections with templates, conversation guides, and document management.
+A [Model Context Protocol (MCP)](https://modelcontextprotocol.io) server that helps you write ALPS (PRD) interactively with AI. Guides you through 9 structured sections with templates, conversation guides, and document management.
 
 ## Features
 
-- 9-section ALPS template with structured XML templates and conversation guides
+- 9-section ALPS (PRD) template with structured XML templates and conversation guides
 - Interactive Q&A workflow — AI asks focused questions, never auto-generates
 - Document management — create, save, load, and export as clean Markdown
 - Section dependency tracking — ensures referenced sections are reviewed first
@@ -19,7 +19,7 @@ No installation required — just add the MCP config to your client:
 ```json
 {
   "mcpServers": {
-    "alps-writer": {
+    "alps-writer-mcp": {
       "command": "npx",
       "args": ["-y", "alps-writer-mcp"]
     }
@@ -40,18 +40,18 @@ No installation required — just add the MCP config to your client:
 
 | Variable | Description | Default |
 | --- | --- | --- |
-| `PRD_OUTPUT_DIR` | Directory for document files (`.alps.xml`, exported markdown) | Current working directory |
+| `ALPS_OUTPUT_DIR` | Directory for document files (`.alps.xml`, exported markdown) | Current working directory |
 
-Config example with `PRD_OUTPUT_DIR`:
+Config example with `ALPS_OUTPUT_DIR`:
 
 ```json
 {
   "mcpServers": {
-    "alps-writer": {
+    "alps-writer-mcp": {
       "command": "npx",
       "args": ["-y", "alps-writer-mcp"],
       "env": {
-        "PRD_OUTPUT_DIR": "~/Documents/prd"
+        "ALPS_OUTPUT_DIR": "~/Documents/alps"
       }
     }
   }
@@ -124,7 +124,7 @@ Then configure your MCP client:
 ```json
 {
   "mcpServers": {
-    "alps-writer": {
+    "alps-writer-mcp": {
       "command": "node",
       "args": ["/path/to/alps-writer-mcp/dist/index.js"]
     }
