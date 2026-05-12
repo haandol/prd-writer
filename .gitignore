@@ -3,3 +3,4 @@ dist
 .devcontainer
 .codex
 .claude/settings.local.json
+.DS_Store
